@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RSVP Seat Checker</title>
+</head>
+<body>
+  <h2>Enter Your Name</h2>
+
+  <input type="text" id="guestName" placeholder="Full Name">
+  <button onclick="checkSeats()">Check Seats</button>
+
+  <p id="result"></p>
+
+  <script>
+    function checkSeats() {
+      const name = document.getElementById("guestName").value;
+      const url = "PASTE_YOUR_WEB_APP_URL_HERE?name=" + encodeURIComponent(name);
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.seats === "Not found") {
+            document.getElementById("result").innerText =
+              "Name not found. Please check spelling.";
+          } else {
+            document.getElementById("result").innerText =
+              "You have " + data.seats + " reserved seat(s).";
+          }
+        });
+    }
+  </script>
+</body>
+</html>
